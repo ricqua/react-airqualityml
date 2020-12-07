@@ -3,21 +3,10 @@ import OutputComponent from "./OutputComponent";
 
 const Form = () => {
   const [input, setInput] = useState({
-    inputTemperature: "22",
-    inputHumidity: "55",
-    inputCO2: "800",
+    inputTemperature: "",
+    inputHumidity: "",
+    inputCO2: "",
   });
-  const URL =
-    "https://ussouthcentral.services.azureml.net/workspaces/2925ec637804440e8a968080918b7775/services/63cdf886d22c441085c48b1ac1af75aa/execute?api-version=2.0&format=swagger";
-  // const Endpoint =
-  //   "http://52.231.76.170:80/api/v1/service/ricqua-microdustav1-endpoint1/score";
-
-  // const Authorisation = "Bearer bykddjziDfoNcf2q0HC6tkTlGVJxHYum";
-
-  // request.AddHeader("Content-Type", "application/json");
-  // request.AddHeader("Authorization", "Bearer sJ50wZb8uGgV8EFIamZuI+tY5dcpsZ2VkAhgmv+oJq0xF6ASfurz1uaBJ3CVgTlXfn7tjjpK4lgsWeYRKIDoLg==");
-  // request.AddHeader("Content-Type", "text/plain");
-  const [fetchBody, setFetchBody] = useState();
 
   const handleChange = (e) => {
     const id = e.target.id;
@@ -27,27 +16,31 @@ const Form = () => {
 
   const handleFetch = (e) => {
     e.preventDefault();
-    setFetchBody({
-      Inputs: {
-        input1: [
-          {
-            Temperature: input.inputTemperature,
-            Humidity: input.inputHumidity,
-            CO2: input.inputCO2,
-          },
-        ],
-      },
-      GlobalParameters: {},
-    });
-    console.log(URL + fetchBody);
-    // fetch(URL)
-    //   .then((response) => response.json())
-    // .then((user) => {
-    //   const { login } = user;
-    //   setUser(login);
-    //   setIsLoading(false);
-    // })
-    // .catch((error) => console.log(error));
+    var myHeaders = new Headers();
+    myHeaders.append(
+      "Authorization",
+      "Bearer sJ50wZb8uGgV8EFIamZuI+tY5dcpsZ2VkAhgmv+oJq0xF6ASfurz1uaBJ3CVgTlXfn7tjjpK4lgsWeYRKIDoLg=="
+    );
+
+    var raw =
+      '{"Inputs": {"input1": [{"Temperature": 20,"Humidity": 55,"CO2": 800}]},"GlobalParameters": {}}';
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch(
+      "https://ussouthcentral.services.azureml.net/workspaces/2925ec637804440e8a968080918b7775/services/63cdf886d22c441085c48b1ac1af75aa/execute?api-version=2.0&format=swagger",
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+
+    console.log("response");
   };
 
   return (
