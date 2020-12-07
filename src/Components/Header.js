@@ -1,6 +1,6 @@
 import React from "react";
 
-const Form = () => {
+const Header = () => {
   return (
     <React.Fragment>
       <div className="headerComponent">
@@ -13,4 +13,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default Header;
