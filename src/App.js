@@ -1,7 +1,6 @@
 import React from "react";
-// import Form from "./Components/Form.js";
 import Header from "./Components/Header.js";
-import Form from "./Components/Fetch";
+import Form from "./Components/Form";
 
 const App = () => {
   return (
@@ -9,10 +8,10 @@ const App = () => {
       <div className="wrapper">
         <div className="main">
           <Header />
-          {/* <Form /> */}
           <Form />
+
+          <p className="footerText">Copyright protected 2020</p>
         </div>
-        {/* <p className="footerText">Copyright protected 2020</p> */}
       </div>
     </React.Fragment>
   );
