@@ -14,14 +14,14 @@ const Form = () => {
     setInput({ ...input, [id]: value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // const [data, setData] = useState([]);
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   // const [data, setData] = useState([]);
+  // };
 
   return (
     <React.Fragment>
-      <form className="formComponent" onSubmit={handleSubmit}>
+      <form className="formComponent">
         <input
           id="inputTemperature"
           placeholder="23ºC"
@@ -37,11 +37,8 @@ const Form = () => {
           placeholder="800ppm"
           onChange={handleChange}
         ></input>
-        <button id="buttonPredict" type="submit">
-          Submit
-        </button>
       </form>
-      <OutputComponent />
+      <OutputComponent props={input} />
     </React.Fragment>
   );
 };
