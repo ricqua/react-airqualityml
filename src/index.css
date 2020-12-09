@@ -8,10 +8,8 @@ body {
 
 .wrapper {
   background: linear-gradient(to right, #e67e22, #e74c3c);
-  /* height: 100%;
-  width: 100%; */
-  /* background-attachment: fixed; */
-  margin: 0;
+  min-height: 100vh;
+  width: 100%;
   padding: 10% 10%;
   display: flex;
   justify-content: center;
@@ -19,9 +17,6 @@ body {
 }
 
 .main {
-  /* margin: 5% 10%; */
-  /* height: 90vh; */
-  /* width: 80vw; */
   background-color: #2c3e50;
   box-shadow: 0px 13px 40px -13px rgba(0, 0, 0, 0.75);
 }
@@ -44,6 +39,7 @@ body {
   letter-spacing: 2px;
   line-height: 1.3;
   font-family: "Roboto Slab", serif;
+  margin: 0 0 15pt 0;
 }
 
 .headerComponent_subtitle {
@@ -68,6 +64,7 @@ body {
 
 .formComponent > input {
   background-color: transparent;
+  text-align: center;
   border: 0;
   border-bottom: solid 1px #f16051;
   width: 150px;
@@ -83,7 +80,7 @@ body {
 #buttonPredict {
   border: 0;
   padding: 8px 20px;
-  margin: 0 2px;
+  margin: 0 2px 25px 2px;
   border-radius: 2px;
   font-weight: lighter;
   letter-spacing: 1px;
@@ -94,6 +91,11 @@ body {
   font-weight: 100;
 }
 
+#buttonPredict:hover {
+  background-color: #df5344;
+  /* outline: none; */
+}
+
 .buttonPredict:active {
   outline: none;
 }
@@ -102,6 +104,10 @@ body {
 .outputContainer {
   margin: 10px;
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .weather_info {
@@ -109,6 +115,12 @@ body {
   font-size: 20px;
   font-weight: 200;
   letter-spacing: 2px;
+}
+
+.loadingMessage {
+  color: white;
+  font-size: 36pt;
+  margin: 0 0 50px 0;
 }
 
 .output_key {
@@ -121,6 +133,8 @@ body {
 .output_value {
   color: #fff;
   font-weight: 200;
+  font-size: 16pt;
+  margin: 0 5pt 0 5pt;
 }
 
 .output_error {

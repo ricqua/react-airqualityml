@@ -10,7 +10,9 @@ const App = () => {
           <Header />
           <Form />
 
-          <p className="footerText">Copyright protected 2020</p>
+          <p className="footerText">
+            Copyright protected 2020. Author: Richard Quantrill
+          </p>
         </div>
       </div>
     </React.Fragment>

@@ -3,9 +3,10 @@ import React, { useState } from "react";
 const OutputComponent = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  let outputResults = [];
+  const [isOutput, setIsOutput] = useState([]);
+  const [gotData, setGotData] = useState(false);
 
-  const inputTemperature = props.props.inputTemperature;
+  let inputTemperature = props.props.inputTemperature;
   let inputHumidity = props.props.inputHumidity;
   let inputCO2 = props.props.inputCO2;
 
@@ -48,19 +49,19 @@ const OutputComponent = (props) => {
     const response = await fetch(proxyUrl + URL, requestOptions)
       .then((response) => response.text())
       .then((result) => {
-        outputResults = JSON.parse(result);
-        outputResults = outputResults.Results.output1.value.Values[0];
-        console.log(outputResults);
+        let obj = JSON.parse(result);
+        obj = obj.Results.output1.value.Values[0];
+        setIsOutput(obj);
+        console.log(obj);
       })
       .catch((error) => {
         setIsError(true);
-        setIsError("Error:", error);
       });
 
     setIsLoading(false);
+    setGotData(true);
   };
 
-  // console.log(outputResults);
   if (isLoading) {
     return (
       <div className="outputContainer">
@@ -69,40 +70,47 @@ const OutputComponent = (props) => {
     );
   }
   if (isError) {
-    <div className="outputContainer">
-      <button id="buttonPredict" type="submit" onClick={handleFetchData}>
-        Try Again
-      </button>
-      <h1 className="output_error">Error</h1>
-    </div>;
+    return (
+      <div className="outputContainer">
+        <button id="buttonPredict" type="submit" onClick={handleFetchData}>
+          Try Again
+        </button>
+        <h1 className="output_error">Error</h1>
+      </div>
+    );
+  }
+  if (gotData) {
+    return (
+      <div className="outputContainer">
+        <button id="buttonPredict" type="submit" onClick={handleFetchData}>
+          Submit new data
+        </button>
+        <div className="outputContainer">
+          <p className="output_key">
+            Temperature:
+            <lable className="output_value">{isOutput[0]}</lable>ºC
+          </p>
+          <p className="output_key">
+            Humidity:
+            <label className="output_value">{isOutput[1]}</label>%RH
+          </p>
+          <p className="output_key">
+            CO2:
+            <label className="output_value">{isOutput[2]}</label>ppm
+          </p>
+          <p className="output_key">
+            pm2.5:
+            <label className="output_value">{Math.round(isOutput[3])}</label>ppm
+          </p>
+        </div>
+      </div>
+    );
   }
   return (
     <div className="outputContainer">
       <button id="buttonPredict" type="submit" onClick={handleFetchData}>
         Submit
       </button>
-      <div>
-        <p>{outputResults}</p>
-        <p>{Math.round(outputResults[3])}</p>
-      </div>
-      <div>
-        <p className="output_key">
-          Temperature:
-          <lable className="output_value">{outputResults[0]}</lable> ºC
-        </p>
-        <p className="output_key">
-          Humidity:
-          <label className="output_value">{outputResults[1]}</label> %RH
-        </p>
-        <p className="output_key">
-          CO2:
-          <label className="output_value"> {outputResults[3]} </label> ppm
-        </p>
-        <p className="output_key">
-          pm2.5:
-          <label className="output_value">55</label> ppm
-        </p>
-      </div>
     </div>
   );
 };

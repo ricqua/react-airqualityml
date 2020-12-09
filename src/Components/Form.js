@@ -14,11 +14,6 @@ const Form = () => {
     setInput({ ...input, [id]: value });
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   // const [data, setData] = useState([]);
-  // };
-
   return (
     <React.Fragment>
       <form className="formComponent">
